@@ -37,6 +37,12 @@ ALLOWED_HOSTS = [
 ]
 
 
+# THE FIX: Tell Django to trust secure form submissions coming from your Render domain
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+]
+
+
 # --- Application Definition ---
 INSTALLED_APPS = [
     "daphne",  # ASGI application server must be at the top
