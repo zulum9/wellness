@@ -1,18 +1,12 @@
-# Web Framework & Core
 Django>=5.0,<6.0
 django-countries>=7.5
-
-# Asynchronous, WebSockets & Realtime Networking
 channels>=4.0.0
 daphne>=4.0.0
-
-# Artificial Intelligence & APIs
 google-genai>=0.1.0
 requests>=2.31.0
-
-# Configuration & Environment Management
 django-environ>=0.11.0
 python-decouple>=3.8
-
-# Production App Server Gateway Interface (Required for Daphne deployment)
+dj-database-url>=2.1.0
+psycopg2-binary>=2.9.9
+whitenoise>=6.6.0
 asgiref>=3.7.0
