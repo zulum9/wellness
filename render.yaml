@@ -3,11 +3,14 @@ services:
     name: beyond-survival-portal
     env: python
     buildCommand: |
+      pip install --upgrade pip
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate
     startCommand: daphne -b 0.0.0.0 -p $PORT wellness.asgi:application
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8 # <-- THE FIX: Forces Render to use a stable Python environment
       - key: DEBUG
         value: "False"
       - key: SECRET_KEY
