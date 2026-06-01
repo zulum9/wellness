@@ -1,0 +1,16 @@
+# Secrets and Environment Variables
+.env
+*.env
+
+# Local Databases
+db.sqlite3
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# OS Specific files
+.DS_Store
+
+# Backup duplicates
+* copy*.*
