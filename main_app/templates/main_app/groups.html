@@ -1,0 +1,183 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Mindful Queen | Support Groups</title>
+        <style>
+            :root {
+                --bg-deep: #1e1015;
+                --bg-gradient-end: #2d161f;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+                --card-bg: rgba(255, 255, 255, 0.04);
+                --border-color: rgba(255, 255, 255, 0.12);
+            }
+
+            body {
+                background: radial-gradient(
+                    circle at center,
+                    var(--bg-gradient-end) 0%,
+                    var(--bg-deep) 100%
+                ) !important;
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                color: var(--text-light);
+                font-family:
+                    "Segoe UI",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+            }
+
+            .main-wrapper {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                text-align: center;
+            }
+
+            h1 {
+                font-family: serif;
+                color: var(--accent-gold);
+                font-size: 2.5rem;
+                margin: 0 0 10px 0;
+                font-weight: 400;
+            }
+
+            .subtitle {
+                opacity: 0.75;
+                font-size: 1.05rem;
+                margin-bottom: 50px;
+            }
+
+            /* GROUP CARD GRID SYSTEM */
+            .grid-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+                margin-top: 20px;
+            }
+
+            .group-card {
+                background-color: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 35px 25px;
+                text-align: center;
+                transition:
+                    transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+                    box-shadow 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .group-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent-gold);
+                box-shadow: 0 15px 35px rgba(226, 149, 120, 0.1);
+            }
+
+            .card-icon {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+
+            .group-card h3 {
+                font-family: serif;
+                color: var(--text-light);
+                font-size: 1.4rem;
+                margin: 0 0 12px 0;
+                font-weight: 400;
+            }
+
+            .group-card p {
+                font-size: 0.92rem;
+                line-height: 1.5;
+                opacity: 0.7;
+                margin: 0 0 25px 0;
+                flex-grow: 1;
+            }
+
+            .join-btn {
+                background-color: transparent;
+                color: var(--accent-gold);
+                border: 1px solid var(--accent-gold);
+                padding: 10px 25px;
+                border-radius: 20px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+
+            .join-btn:hover {
+                background-color: var(--accent-gold);
+                color: var(--bg-deep);
+            }
+
+            .back-link {
+                display: inline-block;
+                margin-bottom: 30px;
+                color: var(--accent-gold);
+                text-decoration: none;
+                font-size: 0.95rem;
+            }
+            .back-link:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div style="text-align: left">
+                <a href="{% url 'dashboard' %}" class="back-link"
+                    >← Return to Dashboard</a
+                >
+            </div>
+
+            <h1>Find Your Safe Circle</h1>
+            <p class="subtitle">
+                You do not have to carry your burdens alone. Step into a
+                community space tailored for your spirit.
+            </p>
+
+            <div class="grid-container">
+                {% for group in categories %}
+                <div class="group-card">
+                    <div>
+                        <div class="card-icon">{{ group.icon_name }}</div>
+                        <h3>{{ group.name }}</h3>
+                        <p>{{ group.description }}</p>
+                        <span
+                            style="
+                                font-size: 0.82rem;
+                                opacity: 0.5;
+                                display: block;
+                                margin-bottom: 15px;
+                            "
+                        >
+                            👥 {{ group.members_count }} sisters joined
+                        </span>
+                    </div>
+                    <a href="/groups/room/{{ group.id }}/" class="join-btn"
+                        >Enter Sanctuary</a
+                    >
+                </div>
+                {% empty %}
+                <div style="grid-column: 1/-1; padding: 40px; opacity: 0.6">
+                    <p>
+                        New sanctuary groups are being prepared by the
+                        sisterhood team. Check back shortly!
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+/* Custom Perfectly Balanced Sanctuary Dashboard Styles */
+
+:root {
+    --sanctuary-indigo: #ca7252;
+    --sanctuary-bg: #bc9fa9;
+}
+
+body {
+    background: linear-gradient(135deg, #cfbcbf 0%, #bc9fa9 100%);
+    background-attachment: fixed;
+    transition: all 0.5s ease-in-out;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(202, 114, 82, 0.2);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(70, 38, 50, 0.05);
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(202, 114, 82, 0.28);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(202, 114, 82, 0.48);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px 0 rgba(202, 114, 82, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+blockquote {
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: #462632;
+}
+
+textarea {
+    background: #fdfbfb !important;
+    border: 1.5px solid rgba(202, 114, 82, 0.22) !important;
+    color: #462632 !important;
+    transition: border-color 0.2s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #ca7252 !important;
+    background: #ffffff !important;
+}
+
+/* Instagram Community Footer Transitions */
+.instagram-link {
+    transition:
+        color 0.2s ease-in-out,
+        transform 0.2s ease-in-out;
+}
+
+.instagram-link:hover {
+    transform: translateY(-1px);
+}
+
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+.htmx-request .htmx-indicator {
+    opacity: 1;
+}
+
+.htmx-request.card {
+    filter: brightness(97%);
+}

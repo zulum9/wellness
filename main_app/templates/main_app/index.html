@@ -1,0 +1,174 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Mindful Queen | Welcome</title>
+        <link rel="stylesheet" href="{% static 'wellness/css/style.css' %}" />
+        <style>
+            :root {
+                /* Matching the deep plum theme from signup */
+                --bg-deep: #1e1015;
+                --bg-gradient-end: #2d161f;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+
+                /* Translucent container glass layer configuration */
+                --card-bg: rgba(255, 255, 255, 0.04);
+                --border-color: rgba(255, 255, 255, 0.12);
+            }
+
+            body {
+                /* Radial gradient replaces the leaking gray background completely */
+                background: radial-gradient(
+                    circle at center,
+                    var(--bg-gradient-end) 0%,
+                    var(--bg-deep) 100%
+                ) !important;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                color: var(--text-light);
+                font-family:
+                    "Segoe UI",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+            }
+
+            /* Main landing sanctuary card wrapper */
+            .welcome-container {
+                width: 100%;
+                max-width: 460px;
+                padding: 45px 40px;
+                box-sizing: border-box;
+                background-color: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                text-align: center;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+                color: var(--accent-gold);
+                font-family: serif;
+                margin: 0 0 10px 0;
+                font-weight: 400;
+            }
+
+            h2 {
+                font-family: serif;
+                color: var(--text-light);
+                font-weight: 400;
+                font-size: 1.6rem;
+                margin: 0 0 20px 0;
+                opacity: 0.95;
+            }
+
+            p {
+                line-height: 1.6;
+                opacity: 0.8;
+                font-size: 0.98rem;
+                margin-bottom: 20px;
+            }
+
+            /* PRIMARY CTA ACTION BUTTON */
+            button {
+                background-color: var(--accent-gold);
+                color: var(--bg-deep);
+                border: none;
+                padding: 15px 40px;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1rem;
+                cursor: pointer;
+                width: 100%;
+                transition:
+                    transform 0.2s,
+                    background-color 0.2s;
+                box-shadow: 0 4px 15px rgba(226, 149, 120, 0.2);
+            }
+
+            button:hover {
+                transform: translateY(-1px);
+                background-color: #e8a68d;
+            }
+
+            button:active {
+                transform: translateY(1px);
+            }
+
+            /* REDIRECT FOOTER TYPOGRAPHY */
+            .login-redirect {
+                text-align: center;
+                margin-top: 25px;
+                font-size: 0.92rem;
+                opacity: 0.75;
+            }
+
+            .login-redirect a {
+                color: var(--accent-gold);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .login-redirect a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="welcome-container">
+            <div style="margin-bottom: 25px">
+                <h1>The Mindful Queen</h1>
+            </div>
+
+            <div class="welcome-text">
+                <h2>Your Journey to Wellness</h2>
+                <p>
+                    Welcome to a sanctuary designed for your mental and
+                    emotional strength. Our mission is to empower women to show
+                    up as their best selves by providing daily support for those
+                    navigating anxiety, depression, or loneliness.
+                </p>
+                <p>
+                    Through daily mantras, inspirational scriptures, and a
+                    supportive community, we walk this path together.
+                </p>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 35px">
+                <a href="{% url 'signup' %}" style="text-decoration: none">
+                    <button>Get Started</button>
+                </a>
+
+                <p class="login-redirect">
+                    Already have an account?
+                    <a href="{% url 'login' %}">Log In</a>
+                </p>
+            </div>
+
+            <footer
+                style="
+                    margin-top: 50px;
+                    text-align: center;
+                    font-size: 0.75rem;
+                    opacity: 0.4;
+                    letter-spacing: 0.5px;
+                "
+            >
+                <p>
+                    Designed by <strong>Computinct Technologies Pvt Ltd</strong>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,293 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Mindful Queen | Sign Up</title>
+        <link rel="stylesheet" href="{% static 'wellness/css/style.css' %}" />
+        <style>
+            :root {
+                /* Rich, warm deep plum instead of flat grey */
+                --bg-deep: #1e1015;
+                --bg-gradient-end: #2d161f;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+
+                /* Sleek translucent glass layer configuration */
+                --card-bg: rgba(255, 255, 255, 0.04);
+                --border-color: rgba(255, 255, 255, 0.12);
+            }
+
+            body {
+                /* Creates a beautiful dark radial glow behind the sign-up container card */
+                background: radial-gradient(
+                    circle at center,
+                    var(--bg-gradient-end) 0%,
+                    var(--bg-deep) 100%
+                ) !important;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                color: var(--text-light);
+                font-family:
+                    "Segoe UI",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+            }
+
+            .signup-container {
+                width: 100%;
+                max-width: 450px;
+                padding: 40px;
+                box-sizing: border-box;
+                background-color: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+
+                /* Gives the card depth and separates it from the rich background */
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                margin: 20px;
+            }
+
+            h2 {
+                font-family: serif;
+                color: var(--accent-gold);
+                font-weight: 400;
+                font-size: 2rem;
+                margin: 0 0 10px 0;
+                text-align: center;
+            }
+
+            .subtitle {
+                line-height: 1.5;
+                opacity: 0.75;
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            /* Error Message Alert Banner Styling */
+            .error-banner {
+                background-color: rgba(214, 40, 40, 0.15);
+                border: 1px solid rgba(214, 40, 40, 0.3);
+                color: #ff8b8b;
+                padding: 12px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            /* FORM LAYOUT SYSTEM */
+            .form-group {
+                margin-bottom: 22px;
+                display: flex;
+                flex-direction: column; /* Stack label above input */
+                text-align: left;
+            }
+
+            label {
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-bottom: 8px;
+                color: var(--text-light);
+                opacity: 0.9;
+                letter-spacing: 0.5px;
+            }
+
+            /* BEAUTIFIED INPUTS */
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            input[type="password"],
+            select {
+                width: 100%;
+                padding: 12px 16px;
+                box-sizing: border-box;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                color: var(--text-light);
+                font-size: 0.95rem;
+                transition: all 0.25s ease;
+                outline: none;
+            }
+
+            input:focus,
+            select:focus {
+                border-color: var(--accent-gold);
+                box-shadow: 0 0 0 3px rgba(226, 149, 120, 0.15);
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+
+            /* Dropdown list contrast option fix */
+            select option {
+                background-color: var(--bg-deep);
+                color: var(--text-light);
+            }
+
+            /* NOTIFICATION CHECKBOX ROW */
+            .notification-opt-in {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin: 25px 0 30px 0;
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .notification-opt-in input[type="checkbox"] {
+                margin-top: 3px;
+                accent-color: var(--accent-gold);
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+
+            .notification-opt-in label {
+                font-size: 0.88rem;
+                line-height: 1.4;
+                opacity: 0.8;
+                margin: 0;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            /* ACTION BUTTON */
+            button[type="submit"] {
+                background-color: var(--accent-gold);
+                color: var(--bg-deep);
+                border: none;
+                padding: 14px 40px;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1rem;
+                cursor: pointer;
+                width: 100%;
+                transition:
+                    transform 0.2s,
+                    background-color 0.2s;
+                box-shadow: 0 4px 15px rgba(226, 149, 120, 0.2);
+            }
+
+            button[type="submit"]:hover {
+                transform: translateY(-1px);
+                background-color: #e8a68d;
+            }
+
+            button[type="submit"]:active {
+                transform: translateY(1px);
+            }
+
+            /* LINK TRANSITIONS */
+            .login-redirect {
+                text-align: center;
+                margin-top: 25px;
+                font-size: 0.9rem;
+                opacity: 0.75;
+            }
+
+            .login-redirect a {
+                color: var(--accent-gold);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .login-redirect a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="signup-container">
+            <h2>Join the Wellness Initiative</h2>
+            <p class="subtitle">
+                Create your account to start your daily journey.
+            </p>
+
+            {% if error %}
+            <div class="error-banner">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_name">Full Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="id_name"
+                        required
+                        placeholder="Enter your name"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="id_age">Age</label>
+                    <input
+                        type="number"
+                        name="age"
+                        id="id_age"
+                        required
+                        placeholder="e.g. 28"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Email Address</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="id_email"
+                        required
+                        placeholder="name@example.com"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="id_password"
+                        required
+                        placeholder="Create a secure password"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="id_country">Country</label>
+                    <select name="country" id="id_country" required>
+                        <option value="" disabled selected>
+                            Select your country
+                        </option>
+                        {% for code, name in countries %}
+                        <option value="{{ code }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="notification-opt-in">
+                    <input type="checkbox" name="notifications" id="notif" />
+                    <label for="notif"
+                        >Activate daily reminders (Email notifications)</label
+                    >
+                </div>
+
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p class="login-redirect">
+                Already have an account?
+                <a href="{% url 'login' %}">Log In</a>
+            </p>
+        </div>
+    </body>
+</html>

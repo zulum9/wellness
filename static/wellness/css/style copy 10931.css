@@ -1,0 +1,189 @@
+/* 1. THEME VARIABLES */
+:root {
+    --bg-deep: #2d1b22; /* Deep Plum - Background */
+    --card-bg: #3d2b32; /* Lighter Plum - Interaction Bars */
+    --accent-gold: #e29578; /* Peach/Gold - Highlights */
+    --text-light: #f9f4f5; /* Off-White - Readable Text */
+    --transition: all 0.3s ease;
+}
+
+/* 2. CORE LAYOUT */
+body {
+    background-color: var(--bg-deep) !important;
+    color: var(--text-light);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+header h1 {
+    color: var(--accent-gold);
+    font-family: "Georgia", serif;
+    font-size: 2.2rem;
+    margin-top: 20px;
+}
+
+header p {
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+/* 3. INTERACTIVE JOURNEY BARS */
+.journey-card {
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: var(--transition);
+    height: 90px; /* Ensures vertical alignment in grid rows */
+}
+
+.journey-card:hover {
+    background-color: #46323a;
+    transform: translateY(-3px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.card-content h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.card-content p {
+    margin: 2px 0 0 0;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* 4. CONTENT OVERLAYS (THE BALLOONS) */
+.verse-overlay {
+    border: 1.5px solid var(--accent-gold);
+    border-radius: 25px;
+    padding: 25px;
+    margin-top: 12px;
+    background-color: rgba(226, 149, 120, 0.05);
+    animation: slideDown 0.4s ease-out;
+    text-align: left;
+}
+
+.main-content-text {
+    font-family: "Georgia", serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* 5. AI REFLECTION STYLING */
+.ai-explanation {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(226, 149, 120, 0.3);
+}
+
+.ai-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    background: rgba(226, 149, 120, 0.15);
+    color: var(--accent-gold);
+    padding: 2px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.ai-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(249, 244, 245, 0.8);
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+/* 6. FORMS & BUTTONS (JOURNAL) */
+textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    padding: 12px;
+    margin-top: 10px;
+    font-family: inherit;
+    resize: none;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+button {
+    background: var(--accent-gold);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--bg-deep);
+    transition: var(--transition);
+}
+
+button:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+}
+
+/* 7. UTILITIES & ANIMATIONS */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.material-icons {
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* 8. RESPONSIVE REFINEMENTS */
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    .journey-card {
+        padding: 15px;
+    }
+    .main-content-text {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Community Groups - The Mindful Queen</title>
+        <link rel="stylesheet" href="{% static 'wellness/css/style.css' %}" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="dashboard-body">
+        <div class="container">
+            <header>
+                <h1>Support Circles</h1>
+                <p>Connect with women walking the same path.</p>
+            </header>
+
+            <div class="groups-grid">
+                {% for group in groups %}
+                <div class="group-card">
+                    <span class="material-icons">{{ group.icon_name }}</span>
+                    <h3>{{ group.name }}</h3>
+                    <p>{{ group.members_count }} members</p>
+                    <button class="btn-secondary">Join Group</button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <nav class="bottom-nav">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'groups' %}" class="active">Groups</a>
+            </nav>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,363 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <style>
+            /* CSS VARIABLES FOR THE SANCTUARY THEME */
+            :root {
+                --bg-deep: #2d1b22;
+                --card-bg: #3d2b32;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+            }
+
+            body {
+                background-color: var(--bg-deep) !important;
+                color: var(--text-light);
+                font-family: "Segoe UI", Roboto, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            .dashboard-container {
+                width: 100%;
+                max-width: 420px;
+                padding: 40px 20px;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+            header h1 {
+                color: var(--accent-gold);
+                font-family: serif;
+                font-size: 2.2rem;
+                margin: 0;
+            }
+            header p {
+                letter-spacing: 2px;
+                font-size: 0.75rem;
+                opacity: 0.6;
+                text-transform: uppercase;
+                margin-top: 8px;
+            }
+
+            /* CLICKABLE JOURNEY BARS */
+            .journey-card {
+                background-color: var(--card-bg);
+                border-radius: 25px;
+                padding: 18px 22px;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                text-align: left;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    background-color 0.2s;
+                color: inherit;
+            }
+            .journey-card:hover {
+                background-color: #46323a;
+                transform: scale(1.02);
+            }
+
+            .card-icon {
+                background-color: rgba(255, 255, 255, 0.07);
+                border-radius: 12px;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 18px;
+                font-size: 22px;
+            }
+
+            .card-content h3 {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+            .card-content p {
+                margin: 2px 0 0 0;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            /* OVERLAYS (BALLOONS) */
+            .verse-overlay {
+                border: 1.5px solid var(--accent-gold);
+                border-radius: 25px;
+                padding: 30px;
+                margin-bottom: 25px;
+                background-color: rgba(226, 149, 120, 0.03);
+                animation: slideDown 0.4s ease-out;
+                text-align: left;
+            }
+
+            /* AI EXPLANATION BOX */
+            .ai-explanation {
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px dashed rgba(226, 149, 120, 0.3);
+            }
+            .ai-tag {
+                display: inline-block;
+                font-size: 0.65rem;
+                background: rgba(226, 149, 120, 0.15);
+                color: var(--accent-gold);
+                padding: 2px 8px;
+                border-radius: 5px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+            }
+            .ai-text {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                color: rgba(249, 244, 245, 0.8);
+                font-style: italic;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .material-icons {
+                color: var(--accent-gold);
+                display: block;
+                margin-bottom: 12px;
+            }
+
+            textarea {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1.5px solid rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+                color: white;
+                padding: 12px;
+                margin-bottom: 10px;
+                font-family: inherit;
+            }
+            button {
+                background: var(--accent-gold);
+                border: none;
+                border-radius: 10px;
+                padding: 10px 20px;
+                font-weight: bold;
+                cursor: pointer;
+                color: var(--bg-deep);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="dashboard-container">
+            <header>
+                <h1>Welcome, {{ user_name }}</h1>
+                <p>{{ today_full }} · YOUR DAILY JOURNEY</p>
+            </header>
+
+            <div class="journey-card" onclick="toggleVerse()">
+                <div class="card-icon">🕊️</div>
+                <div class="card-content">
+                    <h3>Today's Light</h3>
+                    <p>Scripture & Reflection</p>
+                </div>
+            </div>
+            <div id="verseBox" class="verse-overlay" style="display: none">
+                <span class="material-icons">auto_stories</span>
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.2rem;
+                        line-height: 1.6;
+                        margin: 0;
+                    "
+                >
+                    {{ daily_inspiration }}
+                </p>
+
+                <div class="ai-explanation">
+                    <span class="ai-tag">AI Reflection</span>
+                    <p class="ai-text">{{ inspiration_explanation }}</p>
+                </div>
+            </div>
+
+            <div class="journey-card" onclick="toggleAffirmation()">
+                <div class="card-icon">💛</div>
+                <div class="card-content">
+                    <h3>Sis, You Are...</h3>
+                    <p>Daily Affirmation</p>
+                </div>
+            </div>
+            <div
+                id="affirmationBox"
+                class="verse-overlay"
+                style="
+                    display: none;
+                    border-color: #f9f4f5;
+                    background-color: rgba(255, 255, 255, 0.05);
+                "
+            >
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.2rem;
+                        color: var(--text-light);
+                        margin: 0;
+                    "
+                >
+                    "{{ daily_affirmation }}"
+                </p>
+
+                <div class="ai-explanation">
+                    <span class="ai-tag">Why this matters</span>
+                    <p class="ai-text">{{ affirmation_explanation }}</p>
+                </div>
+            </div>
+
+            <div class="journey-card" onclick="toggleNourish()">
+                <div class="card-icon">🌿</div>
+                <div class="card-content">
+                    <h3>Nourish</h3>
+                    <p>Wellness Tip</p>
+                </div>
+            </div>
+            <div id="nourishBox" class="verse-overlay" style="display: none">
+                <span class="material-icons">self_improvement</span>
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.1rem;
+                        line-height: 1.5;
+                        margin: 0;
+                    "
+                >
+                    "{{ daily_wellness_tip }}"
+                </p>
+
+                <div class="ai-explanation">
+                    <span class="ai-tag">Wellness Insight</span>
+                    <p class="ai-text">{{ wellness_tip_explanation }}</p>
+                </div>
+            </div>
+
+            <div class="journey-card" onclick="toggleGratitude()">
+                <div class="card-icon">✍️</div>
+                <div class="card-content">
+                    <h3>Gratitude Journal</h3>
+                    <p>Reflect & Record</p>
+                </div>
+            </div>
+            <div
+                id="gratitudeBox"
+                class="verse-overlay"
+                style="display: none; text-align: left"
+            >
+                <p
+                    style="
+                        color: var(--accent-gold);
+                        font-size: 0.9rem;
+                        margin-bottom: 5px;
+                    "
+                >
+                    Today's Prompt:
+                </p>
+                <p style="font-family: serif; font-size: 1.1rem; margin-top: 0">
+                    {{ gratitude_prompt }}
+                </p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input
+                        type="hidden"
+                        name="active_prompt"
+                        value="{{ gratitude_prompt }}"
+                    />
+                    <textarea
+                        name="thought"
+                        placeholder="Write your reflection here..."
+                        required
+                    ></textarea>
+                    <button type="submit" name="save_thought">
+                        Save Thought
+                    </button>
+                </form>
+            </div>
+
+            <div class="journey-card" onclick="toggleIntention()">
+                <div class="card-icon">🌟</div>
+                <div class="card-content">
+                    <h3>Today I Choose...</h3>
+                    <p>Daily Intention</p>
+                </div>
+            </div>
+            <div
+                id="intentionBox"
+                class="verse-overlay"
+                style="
+                    display: none;
+                    background: linear-gradient(145deg, #3d2b32, #2d1b22);
+                "
+            >
+                <p
+                    style="
+                        font-family: serif;
+                        font-style: italic;
+                        font-size: 1.2rem;
+                        color: var(--accent-gold);
+                        text-align: center;
+                    "
+                >
+                    "{{ daily_intention }}"
+                </p>
+
+                <div class="ai-explanation" style="text-align: center">
+                    <span class="ai-tag">Empowerment</span>
+                    <p class="ai-text">{{ daily_intention_explanation }}</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function toggleVerse() {
+                var x = document.getElementById("verseBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleAffirmation() {
+                var x = document.getElementById("affirmationBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleNourish() {
+                var x = document.getElementById("nourishBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleGratitude() {
+                var x = document.getElementById("gratitudeBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleIntention() {
+                var x = document.getElementById("intentionBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+        </script>
+    </body>
+</html>

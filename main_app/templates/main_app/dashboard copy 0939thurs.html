@@ -1,0 +1,565 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Mindful Queen | Dashboard</title>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+
+        <style>
+            :root {
+                --bg-deep: #2d1b22;
+                --card-bg: #3d2b32;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+            }
+
+            body {
+                background-color: var(--bg-deep) !important;
+                color: var(--text-light);
+                font-family: "Segoe UI", Roboto, sans-serif;
+                margin: 0;
+                min-height: 100vh;
+            }
+
+            /* Branding Header Styles */
+            .branding-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(226, 149, 120, 0.2);
+                margin-bottom: 20px;
+            }
+            .branding-text {
+                font-family: "Georgia", serif;
+                font-size: 0.9rem;
+                color: var(--accent-gold);
+                letter-spacing: 1px;
+            }
+
+            header h1 {
+                color: var(--accent-gold);
+                font-family: "Georgia", serif;
+                font-size: 2.2rem;
+                margin-top: 10px;
+            }
+
+            header p {
+                letter-spacing: 2px;
+                font-size: 0.75rem;
+                opacity: 0.6;
+                text-transform: uppercase;
+            }
+
+            .journey-card {
+                background-color: var(--card-bg);
+                border-radius: 25px;
+                padding: 18px 22px;
+                display: flex;
+                align-items: center;
+                text-align: left;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    background-color 0.2s;
+                height: 90px;
+            }
+
+            .journey-card:hover {
+                background-color: #46323a;
+                transform: translateY(-2px);
+                border-color: var(--accent-gold);
+            }
+
+            .card-icon {
+                background-color: rgba(255, 255, 255, 0.07);
+                border-radius: 12px;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 18px;
+                font-size: 22px;
+                flex-shrink: 0;
+            }
+
+            .card-content h3 {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+            .card-content p {
+                margin: 2px 0 0 0;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .verse-overlay {
+                border: 1.5px solid var(--accent-gold);
+                border-radius: 25px;
+                padding: 25px;
+                margin-top: 10px;
+                background-color: rgba(226, 149, 120, 0.05);
+                animation: slideDown 0.4s ease-out;
+                text-align: left;
+            }
+
+            .main-content-text {
+                font-family: "Georgia", serif;
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .ai-explanation {
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px dashed rgba(226, 149, 120, 0.3);
+            }
+
+            .ai-tag {
+                display: inline-block;
+                font-size: 0.65rem;
+                background: rgba(226, 149, 120, 0.15);
+                color: var(--accent-gold);
+                padding: 2px 8px;
+                border-radius: 5px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+            }
+
+            .ai-text {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                color: rgba(249, 244, 245, 0.8);
+                font-style: italic;
+            }
+
+            .past-reflections {
+                margin-top: 20px;
+                max-height: 200px;
+                overflow-y: auto;
+                padding-right: 5px;
+            }
+            .reflection-item {
+                font-size: 0.85rem;
+                background: rgba(255, 255, 255, 0.03);
+                padding: 10px;
+                border-radius: 10px;
+                margin-bottom: 8px;
+                border-left: 2px solid var(--accent-gold);
+            }
+
+            .loading-text {
+                opacity: 0.5;
+                animation: pulse 1.5s infinite;
+            }
+
+            @keyframes pulse {
+                0% {
+                    opacity: 0.3;
+                }
+                50% {
+                    opacity: 0.6;
+                }
+                100% {
+                    opacity: 0.3;
+                }
+            }
+
+            textarea {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1.5px solid rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+                color: white;
+                padding: 12px;
+                margin: 10px 0;
+                resize: none;
+            }
+
+            button {
+                background: var(--accent-gold);
+                border: none;
+                border-radius: 10px;
+                padding: 10px 20px;
+                font-weight: bold;
+                color: var(--bg-deep);
+            }
+
+            .branding-footer {
+                margin-top: 50px;
+                padding: 30px 0;
+                border-top: 1px solid rgba(226, 149, 120, 0.2);
+                text-align: center;
+                opacity: 0.8;
+            }
+
+            .dev-credit {
+                font-size: 0.7rem;
+                margin-top: 10px;
+                color: var(--accent-gold);
+                opacity: 0.6;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .material-icons {
+                color: var(--accent-gold);
+                display: block;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container py-4">
+        <nav style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        ">
+            <div style="text-align: left;">
+                <a href="{% url 'dashboard' %}" style="
+                    color: var(--accent-gold);
+                    font-family: serif;
+                    font-size: 1.6rem;
+                    text-decoration: none;
+                    display: block;
+                    letter-spacing: 0.5px;
+                    line-height: 1.2;
+                ">The Mindful Queen</a>
+                <span style="
+                    color: var(--text-light);
+                    font-size: 0.82rem;
+                    opacity: 0.5;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    display: block;
+                    margin-top: 4px;
+                ">Beyond Survival. Sisterhood. Into Ruvheneko</span>
+            </div>
+
+            <div style="display: flex; gap: 28px; align-items: center;">
+                <a href="{% url 'groups' %}" style="
+                    color: var(--text-light);
+                    text-decoration: none;
+                    font-size: 0.95rem;
+                    opacity: 0.85;
+                    font-weight: 500;
+                    transition: opacity 0.2s ease, color 0.2s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                ">👥 Support Groups</a>
+
+                <a href="{% url 'logout' %}" style="
+                    color: #ff7675;
+                    text-decoration: none;
+                    font-size: 0.95rem;
+                    font-weight: 600;
+                    opacity: 0.85;
+                    transition: opacity 0.2s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                ">🚪 Logout</a>
+
+                <div style="
+                    font-size: 1.2rem;
+                    padding-left: 10px;
+                    border-left: 1px solid rgba(255,255,255,0.15);
+                    display: flex;
+                    align-items: center;
+                    user-select: none;
+                ">🌸</div>
+            </div>
+        </nav>
+    </div>
+
+            <header class="text-center mb-5">
+                <h1>Welcome, {{ user_name }}</h1>
+                <p>{{ today_full }} · YOUR DAILY JOURNEY</p>
+            </header>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="journey-card" onclick="toggleBox('verseBox')">
+                        <div class="card-icon">🕊️</div>
+                        <div class="card-content">
+                            <h3>Divine Guidance</h3>
+                            <p>Scripture & Peace</p>
+                        </div>
+                    </div>
+                    <div
+                        id="verseBox"
+                        class="verse-overlay"
+                        style="display: none"
+                    >
+                        <span class="material-icons">auto_stories</span>
+                        <p class="main-content-text">{{ daily_inspiration }}</p>
+                        <div class="ai-explanation">
+                            <span class="ai-tag">Heart Reflection</span>
+                            <p class="ai-text ai-target">
+                                Tap to hear from your inner compass...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div
+                        class="journey-card"
+                        onclick="toggleBox('affirmationBox')"
+                    >
+                        <div class="card-icon">💛</div>
+                        <div class="card-content">
+                            <h3>Sis, You Are...</h3>
+                            <p>Daily Affirmation</p>
+                        </div>
+                    </div>
+                    <div
+                        id="affirmationBox"
+                        class="verse-overlay"
+                        style="display: none; border-color: #f9f4f5"
+                    >
+                        <p class="main-content-text">
+                            "{{ daily_affirmation }}"
+                        </p>
+                        <div class="ai-explanation">
+                            <span class="ai-tag">Why this matters</span>
+                            <p class="ai-text ai-target">
+                                Tap to reveal insight...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="journey-card" onclick="toggleBox('nourishBox')">
+                        <div class="card-icon">🌿</div>
+                        <div class="card-content">
+                            <h3>Nourish</h3>
+                            <p>Wellness Tip</p>
+                        </div>
+                    </div>
+                    <div
+                        id="nourishBox"
+                        class="verse-overlay"
+                        style="display: none"
+                    >
+                        <span class="material-icons">self_improvement</span>
+                        <p class="main-content-text">
+                            {{ daily_wellness_tip }}
+                        </p>
+                        <div class="ai-explanation">
+                            <span class="ai-tag">Wellness Insight</span>
+                            <p class="ai-text ai-target">
+                                Tap to reveal wisdom...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div
+                        class="journey-card"
+                        onclick="toggleBox('gratitudeBox')"
+                    >
+                        <div class="card-icon">✍️</div>
+                        <div class="card-content">
+                            <h3>Gratitude Journal</h3>
+                            <p>Reflect & Record</p>
+                        </div>
+                    </div>
+                    <div
+                        id="gratitudeBox"
+                        class="verse-overlay"
+                        style="display: none"
+                    >
+                        <p
+                            style="
+                                color: var(--accent-gold);
+                                font-size: 0.8rem;
+                                text-transform: uppercase;
+                                margin-bottom: 5px;
+                            "
+                        >
+                            Today's Prompt:
+                        </p>
+                        <p class="main-content-text mb-2">
+                            {{ gratitude_prompt }}
+                        </p>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input
+                                type="hidden"
+                                name="save_thought"
+                                value="1"
+                            />
+                            <input
+                                type="hidden"
+                                name="active_prompt"
+                                value="{{ gratitude_prompt }}"
+                            />
+                            <textarea
+                                name="thought"
+                                rows="3"
+                                placeholder="Write your reflection here..."
+                                required
+                            ></textarea>
+                            <button type="submit" class="w-100">
+                                Save Thought
+                            </button>
+                        </form>
+
+                        <div class="past-reflections">
+                            <p
+                                style="
+                                    font-size: 0.7rem;
+                                    color: var(--accent-gold);
+                                    text-transform: uppercase;
+                                    margin-top: 15px;
+                                "
+                            >
+                                Past Reflections
+                            </p>
+                            {% for thought in previous_thoughts %}
+                            <div class="reflection-item">
+                                <div style="font-size: 0.65rem; opacity: 0.5">
+                                    {{ thought.created_at|date:"d M Y" }}
+                                </div>
+                                {{ thought.thought }}
+                            </div>
+                            {% empty %}
+                            <p style="font-size: 0.75rem; opacity: 0.4">
+                                Your journey starts here.
+                            </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div
+                        class="journey-card"
+                        onclick="toggleBox('intentionBox')"
+                    >
+                        <div class="card-icon">🌟</div>
+                        <div class="card-content">
+                            <h3>Today I Choose...</h3>
+                            <p>Daily Intention</p>
+                        </div>
+                    </div>
+                    <div
+                        id="intentionBox"
+                        class="verse-overlay"
+                        style="
+                            display: none;
+                            background: linear-gradient(
+                                145deg,
+                                #3d2b32,
+                                #2d1b22
+                            );
+                        "
+                    >
+                        <p
+                            class="main-content-text"
+                            style="
+                                color: var(--accent-gold);
+                                text-align: center;
+                                font-style: italic;
+                            "
+                        >
+                            "{{ daily_intention }}"
+                        </p>
+                        <div class="ai-explanation" style="text-align: center">
+                            <span class="ai-tag">Empowerment</span>
+                            <p class="ai-text ai-target">
+                                Tap to reveal empowerment...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="branding-footer">
+                <div class="branding-text">
+                    Beyond Survival. Sisterhood. Into Ruvheneko Roseanna Hall
+                </div>
+                <div class="dev-credit">
+                    Designed by Computinct Technologies +263773906757
+                </div>
+            </footer>
+        </div>
+
+        <script>
+            async function toggleBox(id) {
+                const box = document.getElementById(id);
+                const aiTextElement = box.querySelector(".ai-target");
+                const sourceTextElement =
+                    box.querySelector(".main-content-text");
+
+                if (box.style.display === "none") {
+                    box.style.display = "block";
+
+                    if (
+                        aiTextElement &&
+                        (aiTextElement.innerText.includes("Tap to reveal") ||
+                            aiTextElement.innerText.includes("Tap to hear"))
+                    ) {
+                        const originalPrompt = sourceTextElement.innerText;
+                        aiTextElement.innerText =
+                            "Consulting the inner compass...";
+                        aiTextElement.classList.add("loading-text");
+
+                        try {
+                            const response = await fetch(
+                                `/api/explain/?text=${encodeURIComponent(originalPrompt)}`,
+                            );
+                            const data = await response.json();
+                            aiTextElement.innerText = data.explanation;
+                        } catch (error) {
+                            aiTextElement.innerText =
+                                "Find peace in these words today.";
+                        } finally {
+                            aiTextElement.classList.remove("loading-text");
+                        }
+                    }
+                } else {
+                    box.style.display = "none";
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

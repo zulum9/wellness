@@ -1,0 +1,116 @@
+/* THE MINDFUL QUEEN - MASTER STYLE SHEET */
+
+:root {
+    --bg-deep: #2d1b22; /* Deep Plum */
+    --card-bg: #3d2b32; /* Lighter Plum Bars */
+    --accent-gold: #e29578; /* Peach/Gold Accent */
+    --text-light: #f9f4f5; /* Clean White Text */
+}
+
+body {
+    background-color: var(--bg-deep) !important;
+    color: var(--text-light);
+    font-family: "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Changed to start so it scrolls naturally */
+    min-height: 100vh;
+    padding-top: 40px;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 0 20px 40px 20px;
+    text-align: center;
+}
+
+/* JOURNEY CARDS */
+.journey-card {
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.card-icon {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    font-size: 22px;
+}
+
+/* VERSE OVERLAY - UNDERNEATH STYLE */
+.verse-overlay {
+    border: 1.5px solid var(--accent-gold);
+    border-radius: 25px;
+    padding: 25px;
+    margin-top: -5px; /* Pulls it closer to the card above */
+    margin-bottom: 20px;
+    background-color: rgba(226, 149, 120, 0.05);
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.material-icons {
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+/* REFINED INTENTION BODY */
+.intention-body {
+    border: 1px solid rgba(226, 149, 120, 0.15);
+    border-radius: 20px;
+    padding: 35px 25px; /* Added padding for a premium feel */
+    margin-bottom: 20px;
+    background: rgba(226, 149, 120, 0.03);
+    position: relative;
+}
+
+.intention-text {
+    font-family: "Georgia", serif;
+    font-style: italic;
+    font-size: 1.25rem; /* Slightly smaller to accommodate longer API quotes */
+    line-height: 1.7;
+    color: var(--accent-gold) !important;
+    margin: 0;
+    text-align: center;
+}
+
+/* Subtle "glow" effect behind the quote */
+.intention-body::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(
+        circle,
+        rgba(226, 149, 120, 0.05) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}

@@ -1,0 +1,453 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <style>
+            /* CSS VARIABLES FOR THE SANCTUARY THEME */
+            :root {
+                --bg-deep: #2d1b22;
+                --card-bg: #3d2b32;
+                --accent-gold: #e29578;
+                --text-light: #f9f4f5;
+            }
+
+            body {
+                background-color: var(--bg-deep) !important;
+                color: var(--text-light);
+                font-family: "Segoe UI", Roboto, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            .dashboard-container {
+                width: 100%;
+                max-width: 420px;
+                padding: 40px 20px;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+
+            header h1 {
+                color: var(--accent-gold);
+                font-family: serif;
+                font-size: 2.2rem;
+                margin: 0;
+            }
+
+            header p {
+                letter-spacing: 2px;
+                font-size: 0.75rem;
+                opacity: 0.6;
+                text-transform: uppercase;
+                margin-top: 8px;
+            }
+
+            /* CLICKABLE JOURNEY BARS */
+            .journey-card {
+                background-color: var(--card-bg);
+                border-radius: 25px;
+                padding: 18px 22px;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                text-align: left;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    background-color 0.2s;
+                color: inherit;
+            }
+
+            .journey-card:hover {
+                background-color: #46323a;
+                transform: scale(1.02);
+            }
+
+            .card-icon {
+                background-color: rgba(255, 255, 255, 0.07);
+                border-radius: 12px;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 18px;
+                font-size: 22px;
+            }
+
+            .card-content h3 {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+            .card-content p {
+                margin: 2px 0 0 0;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            /* OVERLAYS */
+            .verse-overlay {
+                border: 1.5px solid var(--accent-gold);
+                border-radius: 25px;
+                padding: 30px;
+                margin-bottom: 25px;
+                background-color: rgba(226, 149, 120, 0.03);
+                animation: slideDown 0.4s ease-out;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* INTENTION CARD STYLING (MATCHES SCREENSHOT WHEN OPEN) */
+            .intention-detail {
+                background: linear-gradient(145deg, #3d2b32, #2d1b22);
+                border: 1px solid rgba(226, 149, 120, 0.2);
+                border-radius: 30px;
+                padding: 25px;
+                margin-bottom: 25px;
+                text-align: left;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                animation: slideDown 0.4s ease-out;
+            }
+
+            .intention-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .intention-icon {
+                background: rgba(226, 149, 120, 0.1);
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 12px;
+            }
+
+            .intention-title h3 {
+                margin: 0;
+                font-size: 1.1rem;
+            }
+            .intention-title p {
+                margin: 0;
+                font-size: 0.75rem;
+                opacity: 0.5;
+            }
+
+            .intention-body {
+                border: 1px solid rgba(226, 149, 120, 0.15);
+                border-radius: 20px;
+                padding: 25px 15px;
+                background: rgba(226, 149, 120, 0.02);
+            }
+
+            .intention-text {
+                font-family: serif;
+                font-style: italic;
+                font-size: 1.2rem;
+                line-height: 1.6;
+                color: var(--accent-gold);
+                text-align: center;
+                margin: 0;
+            }
+
+            .intention-footer {
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 15px;
+            }
+
+            .material-icons {
+                color: var(--accent-gold);
+                display: block;
+                margin-bottom: 12px;
+            }
+
+            button {
+                background: var(--accent-gold);
+                border: none;
+                border-radius: 10px;
+                padding: 10px 20px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="dashboard-container">
+            <header>
+                <h1>Welcome, {{ user_name }}</h1>
+                <p>{{ today_full }} · YOUR DAILY JOURNEY</p>
+            </header>
+
+            {% if messages %} {% for message in messages %}
+            <div
+                style="
+                    background: rgba(226, 149, 120, 0.2);
+                    border: 1px solid var(--accent-gold);
+                    color: white;
+                    padding: 10px;
+                    border-radius: 15px;
+                    margin-bottom: 20px;
+                    font-size: 0.85rem;
+                "
+            >
+                ✨ {{ message }}
+            </div>
+            {% endfor %} {% endif %}
+
+            <div class="journey-card" onclick="toggleVerse()">
+                <div class="card-icon">🕊️</div>
+                <div class="card-content">
+                    <h3>Today's Light</h3>
+                    <p>Scripture & Reflection</p>
+                </div>
+            </div>
+            <div id="verseBox" class="verse-overlay" style="display: none">
+                <span class="material-icons">auto_stories</span>
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.2rem;
+                        line-height: 1.6;
+                        margin: 0;
+                    "
+                >
+                    {{ daily_inspiration }}
+                </p>
+            </div>
+
+            <div class="journey-card" onclick="toggleAffirmation()">
+                <div class="card-icon">💛</div>
+                <div class="card-content">
+                    <h3>Sis, You Are...</h3>
+                    <p>Daily Affirmation</p>
+                </div>
+            </div>
+            <div
+                id="affirmationBox"
+                class="verse-overlay"
+                style="
+                    display: none;
+                    border-color: #f9f4f5;
+                    background-color: rgba(255, 255, 255, 0.05);
+                "
+            >
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.2rem;
+                        color: var(--text-light);
+                        margin: 0;
+                    "
+                >
+                    "{{ daily_affirmation }}"
+                </p>
+            </div>
+
+            <div class="journey-card" onclick="toggleNourish()">
+                <div class="card-icon">🌿</div>
+                <div class="card-content">
+                    <h3>Nourish</h3>
+                    <p>Wellness Tip</p>
+                </div>
+            </div>
+            <div id="nourishBox" class="verse-overlay" style="display: none">
+                <span class="material-icons">self_improvement</span>
+                <p
+                    style="
+                        font-family: serif;
+                        font-size: 1.1rem;
+                        line-height: 1.5;
+                        margin: 0;
+                    "
+                >
+                    "{{ daily_wellness_tip }}"
+                </p>
+            </div>
+
+            <div class="journey-card" onclick="toggleGratitude()">
+                <div class="card-icon">✍️</div>
+                <div class="card-content">
+                    <h3>Gratitude Journal</h3>
+                    <p>Reflect & Record</p>
+                </div>
+            </div>
+            <div
+                id="gratitudeBox"
+                class="verse-overlay"
+                style="display: none; text-align: left"
+            >
+                <p
+                    style="
+                        color: var(--accent-gold);
+                        font-size: 0.9rem;
+                        margin-bottom: 5px;
+                    "
+                >
+                    Today's Prompt:
+                </p>
+                <p style="font-family: serif; font-size: 1.1rem; margin-top: 0">
+                    {{ gratitude_prompt }}
+                </p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input
+                        type="hidden"
+                        name="active_prompt"
+                        value="{{ gratitude_prompt }}"
+                    />
+                    <textarea
+                        name="thought"
+                        placeholder="Write your reflection here..."
+                        required
+                        style="
+                            width: 100%;
+                            background: rgba(255, 255, 255, 0.05);
+                            border: 1.5px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 15px;
+                            color: white;
+                            padding: 12px;
+                            margin-bottom: 10px;
+                            font-family: inherit;
+                        "
+                    ></textarea>
+                    <button type="submit" name="save_thought">
+                        Save Thought
+                    </button>
+                </form>
+                <h4
+                    style="
+                        margin: 30px 0 10px 0;
+                        font-size: 0.8rem;
+                        opacity: 0.5;
+                        text-transform: uppercase;
+                    "
+                >
+                    Past Reflections
+                </h4>
+                <div style="max-height: 250px; overflow-y: auto">
+                    {% for item in previous_thoughts %}
+                    <div
+                        style="
+                            background: rgba(255, 255, 255, 0.03);
+                            padding: 15px;
+                            border-radius: 15px;
+                            margin-bottom: 10px;
+                            border-left: 3px solid var(--accent-gold);
+                        "
+                    >
+                        <small style="opacity: 0.5; font-size: 0.7rem"
+                            >{{ item.created_at|date:"F d, Y" }}</small
+                        >
+                        <p
+                            style="
+                                color: var(--accent-gold);
+                                font-size: 0.8rem;
+                                margin: 5px 0;
+                                font-style: italic;
+                            "
+                        >
+                            Prompt: {{ item.prompt }}
+                        </p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.95rem">
+                            {{ item.thought }}
+                        </p>
+                    </div>
+                    {% empty %}
+                    <p
+                        style="
+                            text-align: center;
+                            opacity: 0.4;
+                            font-size: 0.8rem;
+                        "
+                    >
+                        Start your journey by writing your first thought.
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="journey-card" onclick="toggleIntention()">
+                <div class="card-icon">🌟</div>
+                <div class="card-content">
+                    <h3>Today I Choose...</h3>
+                    <p>Daily Intention</p>
+                </div>
+            </div>
+
+            <div
+                id="intentionBox"
+                class="intention-detail"
+                style="display: none"
+            >
+                <div class="intention-header">
+                    <div class="intention-icon">🌟</div>
+                    <div class="intention-title">
+                        <h3>Today I Choose...</h3>
+                        <p>Daily Intention</p>
+                    </div>
+                </div>
+                <div class="intention-body">
+                    <p class="intention-text">"{{ daily_intention }}"</p>
+                </div>
+                <div class="intention-footer">
+                    <p>Carry this intention with you today.</p>
+                    <p style="font-weight: 500">
+                        You are becoming who you were made to be. 🌸
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function toggleVerse() {
+                var x = document.getElementById("verseBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleAffirmation() {
+                var x = document.getElementById("affirmationBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleNourish() {
+                var x = document.getElementById("nourishBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleGratitude() {
+                var x = document.getElementById("gratitudeBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+            function toggleIntention() {
+                var x = document.getElementById("intentionBox");
+                x.style.display = x.style.display === "none" ? "block" : "none";
+            }
+        </script>
+    </body>
+</html>
