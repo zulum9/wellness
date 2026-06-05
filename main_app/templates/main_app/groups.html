@@ -151,23 +151,12 @@
                 {% for group in categories %}
                 <div class="group-card">
                     <div>
-                        <!-- We removed the visual text print of the icon link string here so it looks clean -->
                         <div class="card-icon">🤝</div>
                         <h3>{{ group.name }}</h3>
                         <p>{{ group.description }}</p>
-                        <span
-                            style="
-                                font-size: 0.82rem;
-                                opacity: 0.5;
-                                display: block;
-                                margin-bottom: 15px;
-                            "
-                        >
-                            👥 {{ group.members_count }} sisters joined
-                        </span>
+                        <!-- The sisters joined counter row has been completely removed from here -->
                     </div>
 
-                    <!-- THE FIX: Swapped the internal room layout view path with your group.icon_name field layout string -->
                     <a
                         href="{{ group.icon_name }}"
                         target="_blank"
