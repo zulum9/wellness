@@ -40,12 +40,12 @@ def manifest_view(request):
         "theme_color": "#1e1015",
         "icons": [
             {
-                "src": "https://beyond-survival-portal.onrender.com/static/images/icon-192.png",
+                "src": "https://dummyimage.com/192x192/1e1015/ffffff.png",
                 "sizes": "192x192",
                 "type": "image/png",
             },
             {
-                "src": "https://beyond-survival-portal.onrender.com/static/images/icon-512.png",
+                "src": "https://dummyimage.com/512x512/1e1015/ffffff.png",
                 "sizes": "512x512",
                 "type": "image/png",
             },
