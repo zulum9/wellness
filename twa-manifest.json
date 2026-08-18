@@ -13,7 +13,7 @@
   "backgroundColor": "#1E1015",
   "enableNotifications": true,
   "startUrl": "/",
-  "iconUrl": "https://beyond-survival-portal.onrender.com/static/images/icon-512.png",
+  "iconUrl": "https://dummyimage.com/512x512/1e1015/ffffff.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "/Users/michaelzulu/wellness/wellness/android.keystore",

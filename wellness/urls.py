@@ -24,7 +24,9 @@ def assetlinks_view(request):
             "target": {
                 "namespace": "android_app",
                 "package_name": "com.mindfulqueen.app",
-                "sha256_cert_fingerprints": ["YOUR_SHA256_FINGERPRINT_HERE"],
+                "sha256_cert_fingerprints": [
+                    "0F:DB:7E:DB:B4:30:4B:60:99:74:DA:DA:9D:61:8A:34:60:69:0B:3C:60:B8:CE:0C:FC:77:5C:11:C3:74:53:EE"
+                ],
             },
         }
     ]
