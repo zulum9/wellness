@@ -128,6 +128,14 @@
                 text-decoration: underline;
             }
         </style>
+        <link rel="manifest" href="{% static 'manifest.json' %}" />
+        <meta name="theme-color" content="#1e1015" />
+
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("{% static 'sw.js' %}");
+            }
+        </script>
     </head>
     <body>
         <div class="welcome-container">

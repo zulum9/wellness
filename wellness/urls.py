@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import include, path
 from django.views.generic import TemplateView
 
@@ -16,12 +16,28 @@ def sitemap_view(request):
     return HttpResponse(sitemap_xml, content_type="text/xml")
 
 
+def assetlinks_view(request):
+    # This list will be updated with your SHA-256 fingerprint from Bubblewrap
+    assetlinks = [
+        {
+            "relation": ["delegate_permission/common.handle_all_urls"],
+            "target": {
+                "namespace": "android_app",
+                "package_name": "com.mindfulqueen.app",
+                "sha256_cert_fingerprints": ["YOUR_SHA256_FINGERPRINT_HERE"],
+            },
+        }
+    ]
+    return JsonResponse(assetlinks, safe=False)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     # This connects your main_app to the project
     # If you want the dashboard to be the homepage, leave the string empty ""
     path("sitemap.xml", sitemap_view, name="sitemap"),
     path("", include("main_app.urls")),
+    path(".well-known/assetlinks.json", assetlinks_view),
     # Alternatively, if you wanted it at /app/dashboard, you'd use:
     # path("app/", include("main_app.urls")),
 ]
