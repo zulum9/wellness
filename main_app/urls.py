@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import manifest_view
 
 urlpatterns = [
     path("", views.index, name="index"),  # Land here first!
@@ -14,4 +15,5 @@ urlpatterns = [
     path("chatbot-response/", views.chatbot_response, name="chatbot_response"),
     path("logout/", views.logout_view, name="logout"),
     path("groups/", views.groups_view, name="groups"),
+    path("manifest.json", manifest_view, name="manifest"),
 ]

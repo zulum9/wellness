@@ -30,6 +30,30 @@ API_KEY = config("GEMINI_API_KEY", default="")
 client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 
+def manifest_view(request):
+    manifest_data = {
+        "name": "The Mindful Queen",
+        "short_name": "MindfulQueen",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#1e1015",
+        "theme_color": "#1e1015",
+        "icons": [
+            {
+                "src": "https://beyond-survival-portal.onrender.com/static/images/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+            },
+            {
+                "src": "https://beyond-survival-portal.onrender.com/static/images/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+            },
+        ],
+    }
+    return JsonResponse(manifest_data)
+
+
 @login_required
 @csrf_exempt
 def sister_chatbot_api(request):
