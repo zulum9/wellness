@@ -30,6 +30,10 @@ API_KEY = config("GEMINI_API_KEY", default="")
 client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 
+def account_deletion_view(request):
+    return render(request, 'main_app/account_deletion.html')
+
+
 def manifest_view(request):
     manifest_data = {
         "name": "The Mindful Queen",

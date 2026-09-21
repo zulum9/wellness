@@ -13,14 +13,15 @@
   "backgroundColor": "#1E1015",
   "enableNotifications": true,
   "startUrl": "/",
-  "iconUrl": "https://dummyimage.com/512x512/1e1015/ffffff.png",
+  "iconUrl": "https://beyond-survival-portal.onrender.com/static/images/icon-512.png",
+  "maskableIconUrl": "https://beyond-survival-portal.onrender.com/static/images/icon-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "/Users/michaelzulu/wellness/wellness/android.keystore",
     "alias": "android"
   },
-  "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionName": "2",
+  "appVersionCode": 2,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://beyond-survival-portal.onrender.com/manifest.json",
@@ -42,5 +43,5 @@
   "fileHandlers": [],
   "launchHandlerClientMode": "",
   "displayOverride": [],
-  "appVersion": "1"
+  "appVersion": "2"
 }
