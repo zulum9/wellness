@@ -34,6 +34,9 @@ def account_deletion_view(request):
     return render(request, 'main_app/account_deletion.html')
 
 
+def privacy_policy_view(request):
+    return render(request, 'main_app/privacy_policy.html')
+
 def manifest_view(request):
     manifest_data = {
         "name": "The Mindful Queen",
