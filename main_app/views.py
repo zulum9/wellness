@@ -25,9 +25,12 @@ from google import genai
 from .models import AppUser, DailyUplift, GratitudeThought, SupportGroup
 
 # --- AI CONFIGURATION ---
-API_KEY = config("GEMINI_API_KEY", default="")
+API_KEY = config("GEMINI_API_KEY", default=os.getenv("GEMINI_API_KEY", ""))
+
+
 # Use gemini-1.5-flash for the best balance of speed and cost
 client = genai.Client(api_key=API_KEY) if API_KEY else None
+
 
 
 def account_deletion_view(request):
@@ -295,6 +298,37 @@ def dashboard_view(request):
 
 
 def chatbot_response(request):
+    user_message = request.POST.get("message", "")
+
+    # Retrieve the key inside the function
+    api_key = config("GEMINI_API_KEY", default=os.getenv("GEMINI_API_KEY", ""))
+
+    if not api_key:
+        print("DEBUG: GEMINI_API_KEY was not found in environment!")
+        return JsonResponse({
+            "reply": "I'm right here with you, sis. My thoughts got a little jumbled just now, but I am still listening. Tell me more. 🤍"
+        })
+
+    try:
+        # Initialize client with the key
+        client = genai.Client(api_key=api_key) #
+
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=user_message,
+        ) #
+
+        return JsonResponse({"reply": response.text}) #
+
+    except Exception as e:
+        # Check your Render Live Logs to see this exact output
+        print(f"DEBUG GEMINI ERROR: {type(e).__name__} - {e}")
+        return JsonResponse({
+            "reply": "I'm right here with you, sis. My thoughts got a little jumbled just now, but I am still listening. Tell me more. 🤍"
+        })
+
+
+def chatbot_response22sept(request):
     """HTMX endpoint for the 'How are you feeling' interaction."""
     mood = request.GET.get("mood")
 
