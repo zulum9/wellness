@@ -94,14 +94,23 @@ class GratitudeThought(models.Model):
         ordering = ["-created_at"]  # Shows newest thoughts first
 
 
+# class SupportGroup(models.Model):
+#     name = models.CharField(max_length=100)
+#     members_count = models.IntegerField(default=0)
+#     icon_name = models.CharField(
+#         max_length=50,
+#         help_text="Emoji or Material Icon descriptor name (e.g., '✨', '🌱', '🤝')",
+#     )
+#     description = models.TextField(blank=True)
+
+#     def __str__(self):
+#         return self.name
+
 class SupportGroup(models.Model):
-    name = models.CharField(max_length=100)
-    members_count = models.IntegerField(default=0)
-    icon_name = models.CharField(
-        max_length=50,
-        help_text="Emoji or Material Icon descriptor name (e.g., '✨', '🌱', '🤝')",
-    )
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=255)
+    link = models.URLField(max_length=500, blank=True, null=True, help_text="Web address if available")
+    phone_number = models.CharField(max_length=50, blank=True, null=True, help_text="Phone number if available")
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -103,40 +103,22 @@
                 flex-grow: 1;
             }
 
-            .action-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
             .join-btn {
                 background-color: transparent;
                 color: var(--accent-gold);
                 border: 1px solid var(--accent-gold);
-                padding: 10px 20px;
+                padding: 10px 25px;
                 border-radius: 20px;
                 font-weight: 600;
                 font-size: 0.9rem;
                 cursor: pointer;
                 text-decoration: none;
                 transition: all 0.2s ease;
-                display: block;
             }
 
             .join-btn:hover {
                 background-color: var(--accent-gold);
                 color: var(--bg-deep);
-            }
-
-            .call-btn {
-                background-color: var(--accent-gold);
-                color: var(--bg-deep);
-                border: 1px solid var(--accent-gold);
-            }
-
-            .call-btn:hover {
-                background-color: transparent;
-                color: var(--accent-gold);
             }
 
             .back-link {
@@ -179,34 +161,16 @@
                     <div>
                         <div class="card-icon">🤝</div>
                         <h3>{{ group.name }}</h3>
-                        {% if group.description %}
-                            <p>{{ group.description }}</p>
-                        {% endif %}
+                        <p>{{ group.description }}</p>
+                        <!-- The sisters joined counter row has been completely removed from here -->
                     </div>
 
-                    <div class="action-buttons">
-                        {% if group.link %}
-                            <a
-                                href="{{ group.link }}"
-                                target="_blank"
-                                rel="noopener"
-                                class="join-btn"
-                                >Visit Website</a
-                            >
-                        {% endif %}
-
-                        {% if group.phone_number %}
-                            <a
-                                href="tel:{{ group.phone_number }}"
-                                class="join-btn call-btn"
-                                >Call {{ group.phone_number }}</a
-                            >
-                        {% endif %}
-
-                        {% if not group.link and not group.phone_number %}
-                            <span class="join-btn" style="opacity: 0.5; cursor: default;">Contact Info Pending</span>
-                        {% endif %}
-                    </div>
+                    <a
+                        href="{{ group.icon_name }}"
+                        target="_blank"
+                        class="join-btn"
+                        >Enter Sanctuary</a
+                    >
                 </div>
                 {% empty %}
                 <div style="grid-column: 1/-1; padding: 40px; opacity: 0.6">

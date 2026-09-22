@@ -27,7 +27,12 @@ class DailySanctuaryContentAdmin(admin.ModelAdmin):
     ordering = ("day_number",)
 
 
+@admin.register(SupportGroup)
+class SupportGroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone_number', 'link')
+    search_fields = ('name', 'phone_number')
+
+
 # Register the remaining models
 admin.site.register(DailyUplift)
 admin.site.register(GratitudeThought)
-admin.site.register(SupportGroup)
